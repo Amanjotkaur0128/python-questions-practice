@@ -39,3 +39,31 @@
 # print(less_then_4)
 
 
+
+# Given numbers = range(20), produce a list containing the word ‘even’ if a number in the numbers is even, and the word ‘odd’ if the number is odd. Result would look like ‘odd’,'even',........ 
+
+# li = ["even" if x % 2 == 0 else "odd" for x in range(20)]
+# print(li)
+
+
+
+# Find all of the numbers from 1-1000 that are divisible by 7 
+
+# li = [x for x in range(1,1001) if x%7 == 0]
+# print(li)
+
+
+
+# Count the number of spaces in a string
+
+# string = "my name is Amanjot kaur"
+# print(string.count(" "))
+
+
+
+# Find the common numbers in two lists (without using a tuple or set) list_a = 1, 2, 3, 4, list_b = 2, 3, 4, 5
+
+list_a = [1, 2, 3, 4]
+list_b = [2, 3, 4, 5]
+li = [i for i in list_a for j in list_b if i==j]
+print(li)
