@@ -8,9 +8,6 @@ print("3. To search a movie in the list enter - s")
 print("4. To view the details of movie enter - v")
 print("5. To delete enter - d ")
 print("6. To quit enter - q")
-
-
-
 def input_int(prompt):
      while True:
             value = int(input(prompt))
@@ -18,22 +15,20 @@ def input_int(prompt):
                 return value
             else:
                 print("Please enter an integer greater than or equal to 1.")
-
-
 def input_something(prompt):
      while True:
-        value = input(prompt).strip()
+        value = input(prompt).strip().title()
         if value:
             return value
         else:
             print("Input cannot be empty.")
 def add():
-    name=input_something("enter the movie name: ")
+    name=input_something("enter the movie name: ").title()
     year = input_int("enter the released year of the movie: ")
     duration = input_int("Enter the duration of the movie: ")
     genres = []
     for i in range(0,10):
-        genres_input = input_something("enter the genres: ")
+        genres_input = input_something("enter the genres: ").title()
         genres_choice = input_something("do you want to enter more genres (yes/no): ").lower()
         if genres_choice =="yes":
             genres.append(genres_input)
@@ -44,7 +39,20 @@ def add():
 
 def list():
           for i,j in enumerate(movie_details):
-            print(f"{i}. {j["name"]} - ({j["year"]}) ")
+            print(f"{i+1}. {j["name"]} - ({j["year"]}) ")
+def search():
+    movie = input_something("enter the movie name you want to search: ").lower()
+    found = False
+    for i in range(len(movie_details)):
+        if movie in movie_details[i]["name"].lower():
+            print("Movie is found. here are the details:")
+            list()
+            found = True
+        elif not movie_details:
+            print("No movie saved")
+            found = True
+    if not found:
+         print("ERROR!!!you enter wrong name or the movie is not present!!!")
 
 while True:
     print("Choose: [a]dd, [l]ist, [s]earch, [v]iew, [d]elete or [q]uit.")
@@ -57,25 +65,13 @@ while True:
          list()
     # to search the movie
     elif choice == "s":
-        movie = input_something("enter the movie name you want to search: ")
-        for i in range(len(movie_details)):
-            if movie == movie_details[i]["name"]:
-                print("Movie is found. here are the details:")
-                list()
-            else:
-                print("ERROR!!!you enter wrong name or the movie is not present!!!")
-    
+        search()
     elif choice =="v":
-        movie = input_something("enter the movie name you want to search: ")
-        for i in range(len(movie_details)):
-            if movie == movie_details[i]["name"]:
-                print("here are the details: ")
-                print(movie_details[i])
-            else:
-                print("ERROR!!!you enter wrong name or the movie is not present!!!")
+            view()
     elif choice == "d":
-
-        movie_details.pop()
+        list()
+        index = input("enter the index of the movie you want to delete")
+        movie_details.pop(index - 1)
     
     elif choice == "q":
         print("good bye!!!!")
