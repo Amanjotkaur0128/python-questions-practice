@@ -1,5 +1,5 @@
 print("*-----welcome-----*")
-print("Choose: [a]dd, [l]ist, [s]earch, [v]iew, [d]elete or [q]uit.")
+
 movie_details=[ { "name": "Forrest Gump", "year": 1994, "duration": 142, "genres": ["Drama", "Romance"] },{ "name": "Avengers: Endgame", "year": 2019, "duration": 181, "genres": ["Action","Adventure", "Drama"] }, { "name": "Back to the Future", "year": 1985, "duration": 114,"genres": ["Adventure", "Comedy", "Sci-Fi"] } ]
 choice = 0
 print("1. To add a movie enter - a")
@@ -13,14 +13,11 @@ print("6. To quit enter - q")
 
 def input_int(prompt):
      while True:
-        try:
             value = int(input(prompt))
             if value >= 1:
                 return value
             else:
                 print("Please enter an integer greater than or equal to 1.")
-        except ValueError:
-            print("Invalid input. Please enter an integer.")
 
 
 def input_something(prompt):
@@ -30,39 +27,41 @@ def input_something(prompt):
             return value
         else:
             print("Input cannot be empty.")
+def add():
+    name=input_something("enter the movie name: ")
+    year = input_int("enter the released year of the movie: ")
+    duration = input_int("Enter the duration of the movie: ")
+    genres = []
+    for i in range(0,10):
+        genres_input = input_something("enter the genres: ")
+        genres_choice = input_something("do you want to enter more genres (yes/no): ").lower()
+        if genres_choice =="yes":
+            genres.append(genres_input)
+            continue
+        else:
+            break
+    movie_details.append({"name":name,"year":year, "duration":duration, "genres":genres } )
 
-while choice != "q":
+def list():
+          for i,j in enumerate(movie_details):
+            print(f"{i}. {j["name"]} - ({j["year"]}) ")
+
+while True:
+    print("Choose: [a]dd, [l]ist, [s]earch, [v]iew, [d]elete or [q]uit.")
     choice = input_something("enter your choice: ").lower()
     # to add the new movie
     if choice == "a":
-        new_movie_detail={ "name": "", "year": 0, "duration": 0, "genres":""  }
-        new_movie_detail["name"] = input_something("enter the movie name: ")
-        new_movie_detail["year"] = input_int("enter the released year of the movie: ")
-        new_movie_detail["duration"] = input_int("Enter the duration of the movie: ")
-        genres = input_something("enter the genres os the movie: ")
-        genres = [genre.strip() for genre in genres_input.split(",") if genre.strip()]
-
-        while len(genres) == 0:
-            genres_input = input_something(
-                "Enter at least one genre: "
-            )
-            genres = [genre.strip() for genre in genres_input.split(",") if genre.strip()]
-        new_movie_detail["genres"]= genres
-
-
-        movie_details.append(new_movie_detail)
+        add()
     # to print movie name 
     elif choice == "l":
-        for i in range(len(movie_details)):
-            movie_name = movie_details[i]["name"]
-            print(f"{i+1}. {movie_name}")
+         list()
     # to search the movie
     elif choice == "s":
         movie = input_something("enter the movie name you want to search: ")
         for i in range(len(movie_details)):
             if movie == movie_details[i]["name"]:
                 print("Movie is found. here are the details:")
-                print(movie_details[i])
+                list()
             else:
                 print("ERROR!!!you enter wrong name or the movie is not present!!!")
     
@@ -75,4 +74,11 @@ while choice != "q":
             else:
                 print("ERROR!!!you enter wrong name or the movie is not present!!!")
     elif choice == "d":
+
         movie_details.pop()
+    
+    elif choice == "q":
+        print("good bye!!!!")
+        break
+    else:
+        print("invalid choice")
