@@ -1,5 +1,4 @@
 print("*-----welcome-----*")
-
 movie_details=[ { "name": "Forrest Gump", "year": 1994, "duration": 142, "genres": ["Drama", "Romance"] },{ "name": "Avengers: Endgame", "year": 2019, "duration": 181, "genres": ["Action","Adventure", "Drama"] }, { "name": "Back to the Future", "year": 1985, "duration": 114,"genres": ["Adventure", "Comedy", "Sci-Fi"] } ]
 choice = 0
 print("1. To add a movie enter - a")
@@ -28,9 +27,9 @@ def add():
     duration = input_int("Enter the duration of the movie: ")
     genres = []
     for i in range(0,10):
-        genres_input = input_something("enter the genres: ").title()
+        genres_input = input_something("enter one genres: ").title()
         genres_choice = input_something("do you want to enter more genres (yes/no): ").lower()
-        if genres_choice =="yes":
+        if genres_choice is "yes":
             genres.append(genres_input)
             continue
         else:
@@ -53,7 +52,19 @@ def search():
             found = True
     if not found:
          print("ERROR!!!you enter wrong name or the movie is not present!!!")
-
+def view():
+    if not movie_details:
+        print("No movies saved")
+        return
+    index1 = input_int("Enter movie index number: ")
+    if 1 <= index1 <= len(movie_details):
+        movie = movie_details[index1 - 1]  
+        print(f"Name: {movie['name']}")
+        print(f"Year: {movie['year']}")
+        print(f"Duration: {movie['duration']} minutes")
+        print(f"Genres: {', '.join(movie['genres'])}")
+    else:
+        print("Invalid index number")
 while True:
     print("Choose: [a]dd, [l]ist, [s]earch, [v]iew, [d]elete or [q]uit.")
     choice = input_something("enter your choice: ").lower()
@@ -67,12 +78,11 @@ while True:
     elif choice == "s":
         search()
     elif choice =="v":
-            view()
+        view()
     elif choice == "d":
         list()
-        index = input("enter the index of the movie you want to delete")
+        index = input_int("Enter the index of the movie you want to delete: ")
         movie_details.pop(index - 1)
-    
     elif choice == "q":
         print("good bye!!!!")
         break
