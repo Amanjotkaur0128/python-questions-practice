@@ -56,6 +56,7 @@ def view():
     if not movie_details:
         print("No movies saved")
         return
+    list()
     index1 = input_int("Enter movie index number: ")
     if 1 <= index1 <= len(movie_details):
         movie = movie_details[index1 - 1]  
